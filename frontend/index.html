@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
+    <title>Voice Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon">🎙️</div>
+                <div>
+                    <h1>Voice Notes</h1>
+                    <p>Capture your thoughts, your way.</p>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                id="themeToggle"
+                class="theme-toggle"
+                aria-label="Toggle dark mode"
+            >
+                🌙 Dark
+            </button>
+        </header>
+
+        <!-- API connection status -->
+        <div class="connection-status">
+            <span id="statusIndicator" class="status-indicator"></span>
+            <span id="connectionStatus">Connecting to server...</span>
+        </div>
+
+        <main>
+            <!-- Create or edit note -->
+            <section class="editor-card">
+                <div class="section-heading">
+                    <div>
+                        <h2 id="editorHeading">Create a note</h2>
+                        <p>Write your thoughts or dictate them using your microphone.</p>
+                    </div>
+                </div>
+
+                <form id="noteForm">
+                    <label for="noteTitle">Note title</label>
+                    <input
+                        type="text"
+                        id="noteTitle"
+                        name="title"
+                        placeholder="Enter a title..."
+                        maxlength="150"
+                        autocomplete="off"
+                    >
+
+                    <label for="noteContent">Your note</label>
+                    <textarea
+                        id="noteContent"
+                        name="content"
+                        rows="8"
+                        placeholder="Start typing here..."
+                        required
+                    ></textarea>
+
+                    <div class="editor-meta">
+                        <span id="wordCount">0 words · 0 characters</span>
+                        <span id="recordingStatus" aria-live="polite">
+                            Ready to write
+                        </span>
+                    </div>
+
+                    <!-- Voice controls -->
+                    <div class="voice-controls">
+                        <div class="language-control">
+                            <label for="recognitionLanguage">Dictation language</label>
+                            <select id="recognitionLanguage" name="language">
+                                <option value="en-IN">English (India)</option>
+                                <option value="te-IN">Telugu</option>
+                                <option value="hi-IN">Hindi</option>
+                                <option value="mr-IN">Marathi</option>
+                                <option value="kn-IN">Kannada</option>
+                                <option value="ja-JP">Japanese</option>
+                            </select>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="startRecording"
+                            class="btn btn-record"
+                        >
+                            🎙️ Start speaking
+                        </button>
+
+                        <button
+                            type="button"
+                            id="stopRecording"
+                            class="btn btn-stop"
+                            disabled
+                        >
+                            ⏹ Stop
+                        </button>
+                    </div>
+
+                    <!-- Note actions -->
+                    <div class="form-actions">
+                        <button
+                            type="submit"
+                            id="saveNote"
+                            class="btn btn-primary"
+                        >
+                            💾 Save note
+                        </button>
+
+                        <button
+                            type="button"
+                            id="clearEditor"
+                            class="btn btn-secondary"
+                        >
+                            Clear
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelEdit"
+                            class="btn btn-secondary"
+                            hidden
+                        >
+                            Cancel editing
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Notes history -->
+            <section class="notes-section">
+                <div class="notes-header">
+                    <div>
+                        <h2>Your notes</h2>
+                        <p id="notesSummary">Your saved notes appear here.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="refreshNotes"
+                        class="btn btn-secondary"
+                    >
+                        ↻ Refresh
+                    </button>
+                </div>
+
+                <!-- Search notes -->
+                <div class="search-container">
+                    <span aria-hidden="true">🔎</span>
+                    <input
+                        type="search"
+                        id="searchNotes"
+                        placeholder="Search your notes..."
+                        aria-label="Search notes"
+                    >
+                </div>
+
+                <!-- Notes rendered by script.js -->
+                <div id="notesList" class="notes-list" aria-live="polite">
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <h3>Loading your notes...</h3>
+                        <p>Please wait while your notes are loaded.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Voice Notes · Your notes, organized in one place.</p>
+        </footer>
+    </div>
+
+    <!-- Notification messages -->
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
